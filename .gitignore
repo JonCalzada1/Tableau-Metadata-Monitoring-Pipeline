@@ -1,0 +1,5 @@
+.env
+__pycache__/
+*.pyc
+bi_metadata.db
+.DS_Store
