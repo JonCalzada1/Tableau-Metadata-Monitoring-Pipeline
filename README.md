@@ -17,7 +17,7 @@ The goal of the solution is to extract metadata for Tableau assets, transform it
 - Raw API responses are transformed into a consistent analytics-ready schema with standardized field names and derived status logic.
 - Transformed records are written into a SQLite table using an upsert pattern to avoid duplicate records across runs.
 - The same transformed dataset is also exported to CSV for easy inspection and sharing.
-- In a production environment, this pipeline would run on a schedule via Airflow, a cron job, or a cloud orchestrator such as GitHub Actions or Databricks Jobs. :contentReference[oaicite:0]{index=0}
+- In a production environment, this pipeline would run on a schedule via Airflow, a cron job, or a cloud orchestrator such as GitHub Actions or Databricks Jobs. 
 
 ## Storage Design
 The solution stores metadata in a single SQLite table called `bi_assets_metadata`.
@@ -39,7 +39,7 @@ This table includes asset-level fields such as:
 - `web_url`
 - `last_synced_at`
 
-This schema is intentionally simple so it can be reused directly for reporting and dashboard monitoring. In a warehouse environment, I would extend this into a dimensional model with a core asset dimension and separate fact-style tables for usage and refresh events. :contentReference[oaicite:1]{index=1}
+This schema is intentionally simple so it can be reused directly for reporting and dashboard monitoring. In a warehouse environment, I would extend this into a dimensional model with a core asset dimension and separate fact-style tables for usage and refresh events.
 
 ## Transformations and Data Modeling
 The pipeline transforms Tableau API responses into a clean, reusable schema with consistent field names across workbooks and views.
@@ -64,7 +64,7 @@ The following values are required:
 - `TABLEAU_PAT_SECRET`
 - `TABLEAU_API_VERSION`
 
-In a production implementation, credentials would be stored in a secure secret manager such as AWS Secrets Manager, Azure Key Vault, or Databricks Secrets rather than in a local file. :contentReference[oaicite:2]{index=2}
+In a production implementation, credentials would be stored in a secure secret manager such as AWS Secrets Manager, Azure Key Vault, or Databricks Secrets rather than in a local file.
 
 ## Scheduling
 This pipeline is designed to run on a schedule, for example once per day or every few hours depending on monitoring requirements.
@@ -98,7 +98,7 @@ If this dataset were used to monitor BI health across the company, I would alert
 - **Pipeline freshness issues:** if `last_synced_at` is older than the expected schedule, indicating ingestion problems
 - **Ownership gaps:** assets missing an owner, which creates accountability risks
 
-For anomaly detection, I would compare usage trends against historical baselines and flag material deviations rather than only using fixed thresholds. :contentReference[oaicite:3]{index=3}
+For anomaly detection, I would compare usage trends against historical baselines and flag material deviations rather than only using fixed thresholds. 
 
 ## Design Decision
 One design decision I made was to use SQLite instead of a larger warehouse platform.
@@ -108,7 +108,7 @@ I chose SQLite because it allowed me to demonstrate structured storage, a reusab
 ## Notes / Limitations
 Some metadata fields requested in the assignment, such as `last_viewed`, `views_last_30d`, and refresh-related fields, were not consistently available from the Tableau REST endpoints used in this lightweight implementation.
 
-Where those fields were unavailable, the pipeline preserves them as null or `'unknown'` rather than inferring values that could be misleading. In a production implementation, I would enrich these fields using Tableau admin views, usage telemetry, audit logs, or refresh/job metadata. :contentReference[oaicite:4]{index=4}
+Where those fields were unavailable, the pipeline preserves them as null or `'unknown'` rather than inferring values that could be misleading. In a production implementation, I would enrich these fields using Tableau admin views, usage telemetry, audit logs, or refresh/job metadata. 
 
 ## Output
 The pipeline produces:
