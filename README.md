@@ -1,4 +1,4 @@
-# BI Engineer Technical Assignment — Tableau Metadata Pipeline
+# Tableau Metadata Monitoring Pipeline
 
 ## Repository Contents
 - `main.py` — Tableau metadata ingestion, transformation, and loading pipeline
